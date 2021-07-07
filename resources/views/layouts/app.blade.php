@@ -12,6 +12,15 @@
 		body {
 			font-family: 'Nunito', sans-serif;
 		}
+		.cd-blue{
+			background-color: #2E3192;
+			color: aliceblue;
+		}
+		.cd-red{
+			background-color: #D51317;
+			color: aliceblue;
+		}
+		#D51317
 	</style>
 </head>
 <body>

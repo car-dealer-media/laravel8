@@ -37,7 +37,7 @@
                     <a class="btn btn-small btn-success" href="{{ URL::to('sharks/' . $value->id) }}">Show this shark</a>
 
                     <!-- edit this shark (uses the edit method found at GET /sharks/{id}/edit -->
-                    <a class="btn btn-small btn-info" href="{{ URL::to('sharks/' . $value->id . '/edit') }}">Edit this shark</a>
+                    <a class="btn btn-small cd-blue " href="{{ URL::to('sharks/' . $value->id . '/edit') }}">Edit this shark</a>
             <form action="{{URL::to('sharks', $value->id) }}" method="POST">
             @csrf
             @method("DELETE")
