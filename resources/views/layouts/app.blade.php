@@ -37,8 +37,8 @@
 					<a class="nav-link active" href="{{ URL::to('sharks/create') }}">Create a shark</a>
 				</li>
 			</ul>
-			<form class="d-flex">
-				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+			<form class="d-flex" action="/search" method="GET">
+				<input class="form-control me-2" id='search' name='str' type="search" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 	    </div>

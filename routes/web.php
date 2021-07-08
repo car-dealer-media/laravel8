@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sharkController;
+use App\Models\Shark;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,12 @@ use App\Http\Controllers\sharkController;
 |
 */
 Route::resource('sharks', sharkController::class);
+Route::get('/search/', [sharkController::class,"search"]);
 Route::get('/', function () {
-    return view('welcome');
+    $sharks = shark::all();
+
+    // load the view and pass the sharks
+    return View::make('sharks.index')
+        ->with('sharks', $sharks);
+    //return view('sharks.index');
 });

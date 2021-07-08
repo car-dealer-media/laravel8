@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Shark;
-use View;
-use Illuminate\Support\Facades\Http;
 use Validator;
+use View;
 
 class sharkController extends Controller
 {
@@ -40,12 +40,6 @@ class sharkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-             $validator=Validator::make($request->all(),[
- 56               'name'       => 'required',
- 57               'email'      => 'required|email',
- 58               'shark_level' => 'required|numeric'
- 59
- 60         ]);* @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -83,7 +77,7 @@ class sharkController extends Controller
               $shark->save();
 
             // redirect
-            $request->sesssion::flash('message', 'Successfully created shark!');
+            $request->session()->flash('message', 'Successfully created shark!');
             return redirect('sharks');
         }
     }
@@ -114,7 +108,7 @@ class sharkController extends Controller
     public function edit($id)
     {
         //
-	$shark=Shark::find($id);
+        $shark=Shark::find($id);
         return View::make('sharks.edit')
             ->with('shark', $shark);
     }
@@ -135,13 +129,13 @@ class sharkController extends Controller
             'email'      => 'required|email',
             'shark_level' => 'required|numeric'
         );
-	$validator=Validator::make($request->all(),[
+        $validator=Validator::make($request->all(),[
 	      'name'       => 'required',
               'email'      => 'required|email',
               'shark_level' => 'required|numeric'
 
-	]);
-	$validate =$request->validate($rules);
+        ]);
+        $validate =$request->validate($rules);
         // process the login
         if ($validator->fails()) {
             return Redirect::to('sharks/' . $id . '/edit')
@@ -162,15 +156,28 @@ class sharkController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // dd($id);
-	Shark::destroy($id);
-	return redirect('/sharks')->with('success', 'Shark deleted');
+        //Delete a shark
+        Shark::destroy($id);
+        return redirect('/sharks')->with('success', 'Shark deleted');
+    }
+
+    public function search(Request $request)
+    {
+       if ($request->has('str')){
+
+           $str=$request->str;
+           $sharks=Shark::query()
+           ->where('name', 'LIKE', "%{$str}%") 
+           ->get();
+
+           return View::make('sharks.index')
+           ->with('sharks', $sharks);
+       } 
     }
 }
