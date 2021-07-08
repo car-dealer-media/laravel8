@@ -38,11 +38,11 @@
 
                     <!-- edit this shark (uses the edit method found at GET /sharks/{id}/edit -->
                     <a class="btn btn-small cd-blue " href="{{ URL::to('sharks/' . $value->id . '/edit') }}">Edit this shark</a>
-            <form action="{{URL::to('sharks', $value->id) }}" method="POST">
-            @csrf
-            @method("DELETE")
-            <button type="submit" class="btn btn-small btn-danger ">Delete</button>
-            </form>
+                    <form action="{{URL::to('sharks', $value->id) }}" method="POST" class='form-inline'>
+                        @csrf
+                        @method("DELETE")
+                        <button type="submit" class="btn btn-lg btn-danger ">Delete</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
